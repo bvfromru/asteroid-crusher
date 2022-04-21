@@ -257,21 +257,35 @@ Game.prototype = {
   },
 
   // Collisions between two asteroids
-  collisionWithAsteroids(asteroid) {
-    this.asteroids.forEach((secondAsteroid) => {
+  collisionWithAsteroids(asteroid, i) {
+    for (let j = i + 1; j < this.asteroids.length; j++) {
+      let secondAsteroid = this.asteroids[j];
       if (
-        asteroid !== secondAsteroid &&
-        asteroid.color !== secondAsteroid.color &&
-        (asteroid.x > 0 || asteroid.x < this.gameWidth) &&
-        (asteroid.y > 0 || asteroid.y < this.gameHeight)
-      ) {
-        const dist = Math.hypot(secondAsteroid.x - asteroid.x, secondAsteroid.y - asteroid.y);
-        if (dist - asteroid.radius - secondAsteroid.radius < 1) {
-          this.asteroidBrake(asteroid);
-          this.asteroidBrake(secondAsteroid);
-        }
-      }
-    });
+            asteroid.color !== secondAsteroid.color &&
+            (asteroid.x > 0 || asteroid.x < this.gameWidth) &&
+            (asteroid.y > 0 || asteroid.y < this.gameHeight)
+          ) {
+            const dist = Math.hypot(secondAsteroid.x - asteroid.x, secondAsteroid.y - asteroid.y);
+            if (dist - asteroid.radius - secondAsteroid.radius < 1) {
+              this.asteroidBrake(asteroid);
+              this.asteroidBrake(secondAsteroid);
+            }
+          }
+    }
+    // this.asteroids.forEach((secondAsteroid) => {
+    //   if (
+    //     asteroid !== secondAsteroid &&
+    //     asteroid.color !== secondAsteroid.color &&
+    //     (asteroid.x > 0 || asteroid.x < this.gameWidth) &&
+    //     (asteroid.y > 0 || asteroid.y < this.gameHeight)
+    //   ) {
+    //     const dist = Math.hypot(secondAsteroid.x - asteroid.x, secondAsteroid.y - asteroid.y);
+    //     if (dist - asteroid.radius - secondAsteroid.radius < 1) {
+    //       this.asteroidBrake(asteroid);
+    //       this.asteroidBrake(secondAsteroid);
+    //     }
+    //   }
+    // });
   },
 
   gameplay(deltaTime) {
@@ -295,15 +309,25 @@ Game.prototype = {
 
     // Handle asteroids
     this.addNewAsteroid(deltaTime);
-    this.asteroids.forEach((asteroid) => {
+    for (let i = 0; i < this.asteroids.length; i++) {
+      const asteroid = this.asteroids[i];
       asteroid.update(this.gameWidth, this.gameHeight);
       asteroid.draw(this.context);
       this.collisionWithPlayer(asteroid);
       this.collisionWithProjectiles(asteroid);
       if ((asteroid.x > 0 || asteroid.x < this.gameWidth) && (asteroid.y > 0 || asteroid.y < this.gameHeight)) {
-        this.collisionWithAsteroids(asteroid);
+        this.collisionWithAsteroids(asteroid, i);
       }
-    });
+    }
+    // this.asteroids.forEach((asteroid) => {
+    //   asteroid.update(this.gameWidth, this.gameHeight);
+    //   asteroid.draw(this.context);
+    //   this.collisionWithPlayer(asteroid);
+    //   this.collisionWithProjectiles(asteroid);
+    //   if ((asteroid.x > 0 || asteroid.x < this.gameWidth) && (asteroid.y > 0 || asteroid.y < this.gameHeight)) {
+    //     this.collisionWithAsteroids(asteroid);
+    //   }
+    // });
 
     // Handle particles
     this.particles.forEach((particle) => {
