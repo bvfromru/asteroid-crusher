@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS game by Vitalii Budkin</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+    <link rel="preload" href="./assets/fonts/PixelEmulator.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="./assets/fonts/PixelColeco.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="stylesheet" href="./index.css" />
+    <script type="module" src="./index.js" defer></script>
+  </head>
+  <body>
+    <canvas id="starcanvas"></canvas>
+    <canvas id="canvas"></canvas>
+    <div class="loading__container" id="loader">
+      <div class="loading__container_text">Loading Game</div>
+      <div class="loading__container_loader"></div>
+    </div>
+    <img id="playerImage" src="./assets/images/player-sprite.png" alt="player" />
+    <img id="asteroidImage" src="./assets/images/asteroids-sprite.png" alt="asteroids" />
+    <img id="explosionImage" src="./assets/images/explosion-sprite.png" alt="explosion" />
+    <img id="muteImage" src="./assets/images/mute-sprite.png" alt="mute icon" />
+  </body>
+</html>
